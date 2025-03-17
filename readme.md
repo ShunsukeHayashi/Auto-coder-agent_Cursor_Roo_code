@@ -1,11 +1,11 @@
-# Auto-coder-agent_Cursor_Roo_code
+# Auto-coder-agent with Devin
 
 ## 概要
-このプロジェクトは、CursorとRooを使用した自動コーディングエージェントのためのコードベースです。
+このプロジェクトは、Devinを使用した自動コーディングエージェントのためのコードベースです。
 ログ駆動開発（LDD）を採用し、AIとの対話履歴を効果的に管理・活用します。
 
 ## 特徴
-- Cursor AIとの対話履歴の自動保存
+- Devinとの対話履歴の自動保存
 - ログ駆動開発（LDD）による開発管理
 - 多言語対応（日本語/英語）
 - メトリクスベースの品質管理
@@ -13,7 +13,7 @@
 ## ディレクトリ構造
 ```
 .
-├── .cursor/           # Cursor関連の設定とルール
+├── .Devin/           # Devin関連の設定とルール
 │   └── rules/        # Cursorのルールファイル
 ├── .specstory/       # 仕様とストーリーの履歴
 │   ├── config.mdc    # SpecStory設定
