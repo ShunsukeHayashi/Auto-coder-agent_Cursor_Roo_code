@@ -4,6 +4,8 @@
 
 This document details the integration points between the OpenHands Devin Agent and the Log-Driven Development (LDD) methodology in the Auto-coder-agent_Cursor_Roo_code repository.
 
+Codexエージェントとの統合に関する対応表も追記し、マルチエージェント協調を明示します。
+
 ◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
 ## 計画システムとLDDワークフロー / Planning System and LDD Workflow
 
@@ -39,6 +41,42 @@ This document details the integration points between the OpenHands Devin Agent a
    - DevinのPlanningSystemは、実行結果に基づく計画の最適化を実現
    - LDDの最適化フェーズでは、プロセスの調整とツールの最適化を実施
    - 両者とも、効率と品質の向上を目指した継続的な最適化を重視
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+## CodexプロンプトチェーンとLDDログ / Codex Prompt Chain & LDD Logging
+
+### 対応関係 / Correspondence
+
+| Codex Agent | Auto-coder-agent LDD |
+|-------------|----------------------|
+| Prompt Chain Stage: Intent | LDD タスク定義 / Task Definition |
+| Prompt Chain Stage: Plan | LDD 計画ログ / Planning Logs |
+| Prompt Chain Stage: Implement | LDD 実行ログ / Execution Logs |
+| Prompt Chain Stage: Validate | LDD 検証ログ / Validation Logs |
+| Prompt Chain Stage: Handoff | LDD ハンドオフメモ / Handoff Summary |
+
+### 詳細説明 / Detailed Explanation
+
+1. **意図整理 / Intent Clarification**
+   - Codexは `codex_prompt_chain` セクションでユーザー意図を要約。
+   - LDDではタスク開始時に同等の情報をログへ記録。
+
+2. **計画策定 / Plan Construction**
+   - Codexの計画ステージは具体的なステップを列挙し、`tool_invocations` の予定を定義。
+   - LDDの計画フェーズに対応し、各ステップはメトリクス追跡対象となります。
+
+3. **実装追跡 / Implementation Tracking**
+   - 実装ステージでのアクションと生成物は LDD 実行ログへ記録され、CursorやRooが追跡可能。
+
+4. **検証共有 / Validation Sharing**
+   - テスト結果とリンターログを `validation_matrix` 形式で残し、LDD メトリクスと同期します。
+
+5. **ハンドオフ / Handoff**
+   - Codexのハンドオフサマリーは LDD のフィードバックログへ転記され、後続エージェントが参照します。
+
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+
 ◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
 
 ◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢

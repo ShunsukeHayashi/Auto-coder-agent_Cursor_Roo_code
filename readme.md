@@ -80,6 +80,11 @@ chmod +x /tmp/init_codex_cloud_env.sh
 - テンプレートのカスタマイズ
 - メトリクス収集の設定
 
+4. Codexクラウド初期化（推奨）:
+- `chmod +x codex/init_codex_cloud_env.sh`
+- `./codex/init_codex_cloud_env.sh` を実行して `.venv` と `.env` を生成
+- `.env` に `OPENAI_API_KEY` を設定し、`codex/cloud_init_sequence.mdc` の検証項目を実行
+
 ## 使用方法
 
 ### 1. 基本的な使用方法

@@ -1,8 +1,8 @@
 # 主要コンポーネント / Key Components
 
-このドキュメントは、OpenHands Devin AgentとAuto-coder-agent_Cursor_Roo_codeリポジトリの主要コンポーネントを詳細に説明します。
+このドキュメントは、OpenHands Devin AgentおよびCodexエージェントとAuto-coder-agent_Cursor_Roo_codeリポジトリの主要コンポーネントを詳細に説明します。
 
-This document details the key components of the OpenHands Devin Agent and the Auto-coder-agent_Cursor_Roo_code repository.
+This document details the key components of the OpenHands Devin Agent, the Codex agent, and the Auto-coder-agent_Cursor_Roo_code repository.
 
 ◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
 ## PlanningSystem / 計画システム
@@ -354,6 +354,54 @@ DevinAgent integrates all the above components to realize autonomous software de
 DevinAgentは、LDDのすべてのフェーズ（計画、実行、フィードバック、最適化）に対応しています。タスク理解と計画はLDDの計画フェーズに、自律的な実行は実行フェーズに、コンテキスト認識はメモリーバンクに、継続的な学習と改善はフィードバックと最適化フェーズに対応します。
 
 DevinAgent corresponds to all phases of LDD (planning, execution, feedback, optimization). Task understanding and planning correspond to the planning phase of LDD, autonomous execution corresponds to the execution phase, context awareness corresponds to the memory bank, and continuous learning and improvement correspond to the feedback and optimization phases.
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+## Codex Prompt Chain Template / Codexプロンプトチェーンテンプレート
+
+Codexエージェントは `codex/codex_agent_template.mdc` を使用して、意図・計画・実装・検証・ハンドオフの各ステージを一貫した形式で記録します。
+
+The Codex agent uses `codex/codex_agent_template.mdc` to record intent, plan, implementation, validation, and handoff stages in a consistent format.
+
+### 主要構成 / Key Sections
+
+1. **Prompt Chain Workflow** – ステージごとの目的と期待アウトプットを列挙 / Lists the purpose and expected output of each stage.
+2. **Execution Checklist** – 作業環境や依存関係を確認 / Verifies workspace and dependencies.
+3. **Testing & Validation Matrix** – コマンドと期待結果を追跡 / Tracks commands and expected outcomes.
+4. **Memory Bank Update** – 共有コンテキストをメモリに反映 / Mirrors shared context into the memory bank.
+5. **Handoff Notes** – 後続エージェントへの引き継ぎ情報 / Provides handoff information for downstream agents.
+
+### LDDとの統合 / Integration with LDD
+
+- `codex_prompt_chain` セクションが LDD ログの計画・実行・検証フェーズと対応。
+- `tool_invocations` テーブルはメトリクス収集に使用され、CursorやRooによる再現性を高めます。
+- `handoff_summary` はフィードバックログに転記され、Devinや他エージェントが次のアクションを計画する際の基礎となります。
+
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+## Codex Cloud Init Script / Codexクラウド初期化スクリプト
+
+`codex/init_codex_cloud_env.sh` はクラウド環境でのCodex利用を標準化する初期化スクリプトです。
+
+The `codex/init_codex_cloud_env.sh` script standardises Codex usage in cloud environments.
+
+### 主な機能 / Key Functions
+
+1. **リポジトリ同期 / Repository Sync** – Gitリポジトリのクローンまたは高速更新を実施。
+2. **仮想環境管理 / Virtualenv Management** – `.venv` を生成し、`affiliate_automation/requirements.txt` をインストール。
+3. **環境変数ブートストラップ / .env Bootstrap** – Codex用のサンプル `.env` を生成。
+4. **LDDアセット検証 / LDD Asset Checks** – ログディレクトリとテンプレートの存在を確認。
+
+### 使用手順 / Usage
+
+1. `chmod +x codex/init_codex_cloud_env.sh`
+2. `REPO_URL` や `WORKSPACE_ROOT` など必要な環境変数を設定
+3. `./codex/init_codex_cloud_env.sh` を実行し、初期化ログを `logs/system/` へ保存
+4. `.env` を更新し、`codex/cloud_init_sequence.mdc` の検証チェックを実施
+
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+
 ◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
 
 ◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢

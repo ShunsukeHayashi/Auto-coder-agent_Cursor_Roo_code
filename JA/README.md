@@ -26,6 +26,12 @@ JA/
 3. メモリバンクの初期化
 4. 環境設定の確認
 
+### Codexクラウド初期化（推奨）
+1. 実行権限付与: `chmod +x codex/init_codex_cloud_env.sh`
+2. `./codex/init_codex_cloud_env.sh` を実行し、リポジトリ同期・仮想環境構築・依存インストールを自動化
+3. 生成された `.env` に `OPENAI_API_KEY` など必要な値を入力
+4. 詳細手順と検証コマンドは `codex/cloud_init_sequence.mdc` を参照
+
 ## 使用方法
 
 ### 1. 基本的な使用方法

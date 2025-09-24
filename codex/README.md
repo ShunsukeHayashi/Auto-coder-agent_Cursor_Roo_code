@@ -7,20 +7,20 @@ This directory provides templates and integration guides that adapt the Auto-cod
 ## Contents
 
 - `codex_agent_template.mdc`: Prompt-chaining oriented template for Codex agent executions
+- `cloud_init_sequence.mdc`: Cloud initialisation playbook shared across agents
+- `init_codex_cloud_env.sh`: Shell script for reproducible Codex bootstrapping
 - `ldd_integration.mdc`: Mapping between Codex agent behaviour and the LDD system
 - `README.md`: This file
 
-## Codexクラウド初期化
+## Codexクラウド初期化 / Codex Cloud Bootstrap
 
-Codexクラウド環境で本リポジトリを利用する際は、`init_codex_cloud_env.sh` を実行して初期セットアップを行ってください。詳細な手順は
-`cloud_init_sequence.mdc` にまとめています。
+Codexクラウド環境で本リポジトリを利用する際は、`init_codex_cloud_env.sh` を実行し、仮想環境と依存関係を自動セットアップします。
+詳細な手順とログ連携フローは `cloud_init_sequence.mdc` を参照してください。
 
-1. スクリプトをダウンロードし、実行します。
-2. `.env` に `OPENAI_API_KEY` を設定します。
-3. LDDログテンプレートとメモリバンクの存在を確認します。
-4. Codexに読み込ませる `Agent.md` を `codex/agent/` 配下に配置します。
-
-初期化後は、以下のプロンプトチェーンおよびツール実行手順に従ってください。
+1. スクリプトに実行権限を付与: `chmod +x codex/init_codex_cloud_env.sh`
+2. 必要に応じて `REPO_URL` や `WORKSPACE_ROOT` などの環境変数を上書き
+3. `./codex/init_codex_cloud_env.sh` を実行し、`.env` と LDDログ基盤を生成
+4. `.env` に `OPENAI_API_KEY` 等を設定し、Codex実行前に確認
 
 ## Prompt Chaining & Tool Orchestration
 

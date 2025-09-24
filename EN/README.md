@@ -26,6 +26,12 @@ EN/
 3. Initialize Memory Bank
 4. Verify Environment Settings
 
+### Codex Cloud Init (Optional but Recommended)
+1. Grant execute permission: `chmod +x codex/init_codex_cloud_env.sh`
+2. Run `./codex/init_codex_cloud_env.sh` to clone/update the repository, create `.venv`, and install dependencies.
+3. Populate the generated `.env` with `OPENAI_API_KEY` and other environment variables.
+4. Review `codex/cloud_init_sequence.mdc` for verification commands and logging guidance.
+
 ## Usage
 
 ### 1. Basic Usage

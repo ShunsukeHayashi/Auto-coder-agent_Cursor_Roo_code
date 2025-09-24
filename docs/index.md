@@ -18,6 +18,7 @@
 - [ツール設定](technical/tools.md) - 使用ツールの設定方法
 - [CI/CD](technical/cicd.md) - 継続的インテグレーション/デプロイメント
 - [Codex統合ガイド](codex/integration_guide.md) - CodexエージェントのLDD統合手順
+- [Codexクラウド初期化シーケンス](../codex/cloud_init_sequence.mdc) - Codex環境ブートストラップ手順
 
 ## 運用ドキュメント
 - [監視](operations/monitoring.md) - システム監視とアラート

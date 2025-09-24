@@ -29,7 +29,7 @@ Auto-coder-agent_Cursor_Roo_codeは、ログ駆動開発（LDD）手法を用い
 - Prompt chaining results must be logged in `codex_prompt_chain` sections so all agents can audit the workflow.
 - `docs/codex/integration_guide.md`にCodex専用のベストプラクティスとハンドオフ手順を記載しています。
 - メトリクスとフィードバックにはCodexの実行結果も含め、LDD全体の継続的改善に活用します。
-- Codexクラウド環境での初期化は `codex/init_codex_cloud_env.sh` と `codex/cloud_init_sequence.mdc` を参照し、セットアップログを残してください。
+- Codexクラウド実行時は `codex/init_codex_cloud_env.sh` を利用し、`cloud_init_sequence.mdc` に沿って環境を再現します。
 
 ◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
 ## タスク分解
@@ -104,6 +104,7 @@ Auto-coder-agent_Cursor_Roo_codeは、ログ駆動開発（LDD）手法を用い
 - デフォルトシェル: **Bash**
 - ホームディレクトリ: **/home/ubuntu**
 - 現在の作業ディレクトリ: **/home/ubuntu/repos/Auto-coder-agent_Cursor_Roo_code**
+- Codex初期化スクリプト: **./codex/init_codex_cloud_env.sh**
 ◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
 
 ## 開発ワークフロー

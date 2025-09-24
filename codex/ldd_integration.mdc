@@ -61,6 +61,17 @@ Codex follows the shared Cursor ruleset and adds guardrails for tool invocation:
 - Flag any unresolved warnings so subsequent agents can plan remediation
 ```
 
+### 5. Environment Provisioning
+
+Codexクラウド環境の初期化は LDD の可観測性と再現性に直結します。`init_codex_cloud_env.sh` と `cloud_init_sequence.mdc` を使用することで次の要素を保証します。
+
+- 依存関係とログ基盤を自動構築し、他エージェントと同じ状態を共有
+- `.env` 生成を通じてメトリクス送信先やAPIキーを明示化
+- 初期化ログを `logs/system/` に保存し、フェイルセーフの手掛かりを確保
+
+Environment bootstrap aligns with LDD observability. The combination of `init_codex_cloud_env.sh` and `cloud_init_sequence.mdc` ensures deterministic dependencies, shared logging assets, and traceable `.env` configuration across agents.
+
+
 ## Workflow Integration
 
 ### Planning Phase

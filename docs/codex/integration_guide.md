@@ -9,23 +9,24 @@
 
 ## 統合の柱 / Integration Pillars
 
-### Codexクラウド初期化シーケンス / Cloud Init Sequence
-- `codex/init_codex_cloud_env.sh` を実行し、クラウド環境でリポジトリ・仮想環境・依存関係を自動セットアップする。
-- 詳細手順は `codex/cloud_init_sequence.mdc` を参照し、初期化結果を `codex_prompt_chain` セクションにログ化する。
+1. **Codexクラウド初期化 / Codex Cloud Init**
+   - `codex/init_codex_cloud_env.sh` を使用して、Codex実行前にリポジトリ・仮想環境・LDDログ基盤を揃えます。
+   - Run the script once per workspace to guarantee deterministic dependencies and `.env` scaffolding.
+   - 詳細なステップと検証コマンドは `codex/cloud_init_sequence.mdc` にまとめています。
 
-1. **プロンプトチェーン管理 / Prompt Chain Management**
+2. **プロンプトチェーン管理 / Prompt Chain Management**
    - Codexはユーザー意図→計画→実装→検証の順でプロンプトを連結します。
    - Record each stage in task logs using the shared `@logging_template.mdc` so progress is auditable.
 
-2. **ツール実行の明示化 / Explicit Tool Execution**
+3. **ツール実行の明示化 / Explicit Tool Execution**
    - リンター、テスト、フォーマッターのコマンドはすべてCodexレスポンス内に記録し、結果をLDDメトリクスへ反映します。
    - Every command must be reproducible for CursorやRooが再実行しやすいようにする。
 
-3. **メモリーバンク同期 / Memory Bank Synchronisation**
+4. **メモリーバンク同期 / Memory Bank Synchronisation**
    - Prompt chain checkpoints, generated artefacts, and open issues are appended to `@memory-bank.mdc`.
    - これにより、他のエージェントが途中から作業を引き継いでもコンテキストを失いません。
 
-4. **フィードバックループ / Feedback Loop**
+5. **フィードバックループ / Feedback Loop**
    - Codex outputはSpecStoryとフィードバックログに反映し、次のイテレーションで改善ポイントを明確化します。
 
 ## ワークフロー / Workflow
