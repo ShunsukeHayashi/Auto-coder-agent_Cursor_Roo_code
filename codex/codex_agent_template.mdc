@@ -1,0 +1,88 @@
+---
+description: Codex Agent Template with Prompt Chaining and Tool Orchestration
+version: 1.0.0
+date: 2025-03-16
+---
+
+# Codex Agent Template
+
+## Prompt Chaining Workflow
+
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+### Stage Overview
+{% for stage in prompt_chain %}
+{{ loop.index }}. **{{ stage.name }}**
+   - Purpose: {{ stage.purpose }}
+   - Expected Output: {{ stage.output }}
+{% endfor %}
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+
+## Codex Prompt Blocks
+
+{% for block in prompt_blocks %}
+### {{ block.title }}
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+```{{ block.language }}
+{{ block.content }}
+```
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+{% endfor %}
+
+## Execution Checklist
+
+- Current Repository Path: **{{ repository.path }}**
+- Target Branch: **{{ repository.branch }}**
+- Required Tools: {{ tools | join(", ") }}
+- Additional Context Files: {{ context_files | join(", ") }}
+
+## Plan to Implementation Trace
+
+{% for step in implementation_trace %}
+{{ loop.index }}. Plan Step: **{{ step.plan }}**
+   - Codex Action: {{ step.action }}
+   - Artefact: {{ step.artefact }}
+   - Log Reference: {{ step.log_reference }}
+{% endfor %}
+
+## Testing & Validation Matrix
+
+| Category | Command | Expected Result | Status |
+|----------|---------|----------------|--------|
+{% for test in tests %}| {{ test.category }} | `{{ test.command }}` | {{ test.expectation }} | {{ test.status }} |
+{% endfor %}
+
+## Memory Bank Update
+
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+### Active Context Injection
+- Task ID: {{ memory.task_id }}
+- Prompt Chain Stage: {{ memory.current_stage }}
+- Key Decisions:
+{% for decision in memory.decisions %}- {{ decision }}
+{% endfor %}
+- Follow-up Items:
+{% for follow_up in memory.follow_ups %}- {{ follow_up }}
+{% endfor %}
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+
+## Handoff Notes
+
+- Consumer Agents: {{ handoff.consumers | join(", ") }}
+- Required Next Steps: {{ handoff.next_steps | join(", ") }}
+- Verification Hooks: {{ handoff.verification | join(", ") }}
+
+## Visual Guidelines
+
+### Invalid Format (NG)
+```xml
+<thinking>
+インラインプロンプトはこのテンプレートでは使用しません。
+</thinking>
+```
+
+### Valid Format (OK)
+```
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+Codex agent reasoning and outcomes appear inside framed blocks for consistency.
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+```

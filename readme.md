@@ -1,14 +1,15 @@
 # Auto-coder-agent_Cursor_Roo_code
 
 ## 概要
-このプロジェクトは、CursorとRooを使用した自動コーディングエージェントのためのコードベースです。
-ログ駆動開発（LDD）を採用し、AIとの対話履歴を効果的に管理・活用します。
+このプロジェクトは、Cursor・Roo・Codexエージェントを活用した自動コーディングワークフローのコードベースです。
+ログ駆動開発（LDD）を採用し、複数エージェントとの対話履歴を効果的に管理・活用します。
 
 ## 特徴
-- Cursor AIとの対話履歴の自動保存
+- Cursor / Codex AIとの対話履歴の自動保存
 - ログ駆動開発（LDD）による開発管理
 - 多言語対応（日本語/英語）
 - メトリクスベースの品質管理
+- Codexエージェント向けプロンプトチェーンテンプレートと統合ガイド
 
 ## ディレクトリ構造
 ```
@@ -60,13 +61,21 @@
 git clone https://github.com/ShunsukeHayashi/Auto-coder-agent_Cursor_Roo_code.git
 ```
 
-2. 必要なツール:
+2. Codexクラウド初期化:
+```bash
+curl -sS https://raw.githubusercontent.com/ShunsukeHayashi/Auto-coder-agent_Cursor_Roo_code/main/codex/init_codex_cloud_env.sh \
+  -o /tmp/init_codex_cloud_env.sh
+chmod +x /tmp/init_codex_cloud_env.sh
+/tmp/init_codex_cloud_env.sh
+```
+
+3. 必要なツール:
 - Cursor（最新版）
 - PowerShell 7以上
 - Git
 - SpecStory Cursor Extension
 
-3. LDD環境の設定:
+4. LDD環境の設定:
 - ログディレクトリの確認
 - テンプレートのカスタマイズ
 - メトリクス収集の設定
@@ -81,11 +90,11 @@ git clone https://github.com/ShunsukeHayashi/Auto-coder-agent_Cursor_Roo_code.gi
 ### 2. ログ管理
 1. `@logging_template.mdc`に従ってログを記録
 2. 適切なログカテゴリを選択
-3. メトリクスの定期的な確認
+3. Codexを含む各エージェントの出力をメトリクスに反映
 
 ### 3. フィードバックループ
 1. タスク完了後のフィードバック記録
-2. AI分析結果の統合
+2. AI分析結果の統合（Cursor / Roo / Codex / Devin）
 3. 改善提案の実装
 
 ## メトリクス管理
@@ -107,3 +116,4 @@ git clone https://github.com/ShunsukeHayashi/Auto-coder-agent_Cursor_Roo_code.gi
 - [SpecStory公式サイト](https://specstory.com/)
 - [Cursor公式サイト](https://cursor.sh/)
 - [プロジェクトドキュメント](./docs/)
+- [Codex統合ガイド](./docs/codex/integration_guide.md)

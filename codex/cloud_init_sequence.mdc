@@ -1,0 +1,100 @@
+---
+description: Codexクラウド環境初期化シーケンス
+date: 2025-03-20
+version: 1.0.0
+---
+
+# Codexクラウド環境初期化シーケンス
+
+## 目的
+- Codexクラウド実行環境で本リポジトリを即座に利用できるようにする。
+- LDDログ、テンプレート、メモリバンクを初期状態で整備する。
+- Codex指示セット（Agent.md相当のルール群）をローカル環境へ取り込み、後続エージェントが再利用できるようにする。
+
+## 事前条件
+1. Git、Python 3.10+ がクラウド環境にインストールされていること。
+2. OpenAI APIキーを保有していること。
+3. Codexクラウド環境からインターネットへ接続でき、GitHubへアクセスできること。
+
+## シーケンス概要
+| ステップ | 内容 | 成果物 |
+|---------|------|--------|
+| 1 | ワークスペース作成とリポジトリ取得 | `$HOME/repos/Auto-coder-agent_Cursor_Roo_code` |
+| 2 | Python仮想環境構築と依存関係インストール | `.venv` と必要パッケージ |
+| 3 | Codex向け設定ファイル生成 | `.env`, `logs/*` |
+| 4 | Agent指示セットの同期 | `codex/agent/Agent.md` など任意パス |
+| 5 | 動作確認 | `pytest` や `python -m` などの検証ログ |
+
+## 詳細ステップ
+
+### 1. 初期化スクリプトの実行
+Codexクラウド環境では、以下のスクリプトを実行して初期セットアップを行います。
+
+```bash
+curl -sS https://raw.githubusercontent.com/ShunsukeHayashi/Auto-coder-agent_Cursor_Roo_code/main/codex/init_codex_cloud_env.sh \
+  -o /tmp/init_codex_cloud_env.sh
+chmod +x /tmp/init_codex_cloud_env.sh
+/tmp/init_codex_cloud_env.sh
+```
+
+> 既にリポジトリをクローン済みの場合は、`WORKSPACE_ROOT` や `VENV_DIR` を環境変数で指定して再実行すると、更新と依存関係の再インストールのみを行います。
+
+### 2. OpenAI APIキーの設定
+
+```bash
+cd ~/repos/Auto-coder-agent_Cursor_Roo_code
+echo "OPENAI_API_KEY=your_api_key" >> .env
+```
+
+Codexクラウド環境が秘密情報ストアを提供している場合は、`.env` に直接書き込まず、ストア連携機能で `OPENAI_API_KEY` を注入してください。
+
+### 3. Agent.md（Codex指示セット）の取り込み
+
+Codexに読み込ませたい `Agent.md` もしくは同等のドキュメントを `codex/agent/Agent.md` に配置します。
+
+```bash
+mkdir -p codex/agent
+cat <<'AGENT' > codex/agent/Agent.md
+# ここにCodexへ適用したいルールセットを貼り付ける
+AGENT
+```
+
+Codexセッション開始時には、このファイルを参照してプロンプトに取り込む、またはCodexの「システムプロンプト」領域に貼り付けてください。
+
+### 4. LDDログとテンプレートの検証
+
+```bash
+ls logs
+cat @logging_template.mdc | head
+cat @memory-bank.mdc | head
+```
+
+テンプレートが存在しない場合は、リポジトリの最新バージョンを取得したか確認してください。
+
+### 5. 動作確認コマンド
+
+```bash
+source .venv/bin/activate
+pytest || echo "Pytestが失敗した場合はログを確認してください"
+python -m affiliate_automation.main --help
+```
+
+Codexレスポンスには、実行したコマンドと結果（成功/失敗、主要な出力）を必ず記録し、LDDログに転記してください。
+
+## Codexワークフローへの組み込み
+- 初期化後、`codex/codex_agent_template.mdc` を利用してプロンプトチェーンを構築します。
+- 作業ログには `codex_prompt_chain` セクションを追加し、初期化スクリプトの実行結果も記録して再現可能性を高めてください。
+- `@memory-bank.mdc` の `Codex Collaboration Snapshot` に、セットアップ状況（仮想環境のパス、依存関係のバージョンなど）を追記すると、他エージェントが環境差異を把握しやすくなります。
+
+## トラブルシューティング
+- **仮想環境が生成されない**: `python3 -m venv --help` を実行し、Pythonにvenvモジュールが含まれているか確認してください。
+- **依存関係のインストールに失敗する**: `pip install --upgrade pip setuptools wheel` を実行してから再度試みます。
+- **Gitリセットでローカル変更が失われる**: `init_codex_cloud_env.sh` は `reset --hard` を実行します。カスタマイズを保持したい場合は、実行前に別ブランチに退避してください。
+
+## メンテナンス
+- スクリプトの更新を定期的に確認し、Codexクラウド環境のベースイメージ更新時に再実行する。
+- `.env` に機密情報を残さず、クラウド提供のシークレット管理に移行する。
+- `pip list --outdated` で古い依存関係を把握し、必要に応じてアップデートを行う。
+
+---
+Codexクラウド初期化シーケンスを標準化することで、他のエージェントが同一環境で作業を開始できるようになります。

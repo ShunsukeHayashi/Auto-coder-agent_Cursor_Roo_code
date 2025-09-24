@@ -1,0 +1,84 @@
+---
+description: Integration between Codex Agent and LDD System
+version: 1.0.0
+date: 2025-03-16
+---
+
+# Codex Agent LDD Integration
+
+## Overview
+
+This document defines how the Codex agent's prompt chaining workflow aligns with the existing Log-Driven Development (LDD) system so that Cursor, Roo, Devin, and Codex can collaborate without losing context or traceability.
+
+## Integration Points
+
+### 1. Logging Structure
+
+Codex extends the standard logging template with prompt chaining markers:
+
+```
+- Base Template: @logging_template.mdc
+- Additional Sections:
+  - codex_prompt_chain
+  - tool_invocations
+  - validation_matrix
+  - handoff_summary
+```
+
+### 2. Memory Bank Synchronisation
+
+Prompt chain checkpoints are persisted alongside LDD state data:
+
+```
+## Active States
+### Codex Prompt Chain
+- Task ID: {TASK_ID}
+- Current Stage: {CURRENT_STAGE}
+- Prompt Summary: {PROMPT_SNIPPET}
+- Generated Artefacts: {ARTEFACT_LIST}
+- Pending Validations: {VALIDATION_ITEMS}
+```
+
+### 3. SpecStory Alignment
+
+Codex outputs feed into SpecStory stories to preserve reasoning:
+
+```
+## Story Context
+- Intent Summary: {INTENT}
+- Prompt Chain Decisions: {DECISION_LIST}
+- Verification Hooks: {TEST_REFERENCES}
+```
+
+### 4. Cross-Agent Collaboration
+
+Codex follows the shared Cursor ruleset and adds guardrails for tool invocation:
+
+```
+- Always document the exact prompt sent to Codex when major artefacts are produced
+- Log every tool invocation (tests, linters, formatters) with outcomes
+- Provide explicit handoff notes for Cursor, Roo, or Devin follow-up work
+- Flag any unresolved warnings so subsequent agents can plan remediation
+```
+
+## Workflow Integration
+
+### Planning Phase
+1. Analyse user intent using the existing intent analysis structure
+2. Build the initial Codex prompt chain with goals, constraints, and acceptance tests
+3. Store the plan in the task log under `codex_prompt_chain`
+
+### Execution Phase
+1. Execute each prompt chain stage, recording prompts and responses in the logs
+2. Run required tooling and update the validation matrix
+3. Sync Memory Bank entries after each major artefact is produced
+
+### Feedback Phase
+1. Compare Codex outputs with acceptance criteria stored in SpecStory
+2. Document gaps or refactor needs in the feedback log
+3. Update prompt chain notes with lessons learned for future iterations
+
+### Optimisation Phase
+1. Review the end-to-end prompt chain for reuse opportunities
+2. Update Codex templates or guardrails in this directory
+3. Share improvements with other agents through the Memory Bank and documentation

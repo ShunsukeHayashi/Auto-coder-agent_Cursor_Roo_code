@@ -169,6 +169,38 @@ This document details the integration points between the OpenHands Devin Agent a
 ◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
 
 ◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+## Codexエージェント統合マッピング / Codex Agent Integration Mapping
+
+### 対応関係 / Correspondence
+
+| Codex Agent | Auto-coder-agent LDD |
+|-------------|---------------------|
+| Prompt Chain Stage Tracking | `codex_prompt_chain`ログセクション |
+| Tool Invocation Records | `tool_invocations`メトリクスログ |
+| Validation Matrix | メトリクス/テストログ |
+| Handoff Summary | フィードバックログ + SpecStory | 
+
+### 詳細説明 / Detailed Explanation
+
+1. **プロンプトチェーン管理 / Prompt Chain Management**
+   - Codexはユーザー意図から検証までの各ステージを明確にログへ記録
+   - LDDでは同じ情報をタスクログに保持し、CursorやDevinが再利用可能にする
+
+2. **ツール実行の可視化 / Tool Execution Visibility**
+   - Codexはすべてのテスト・リンター実行を`tool_invocations`に記録
+   - LDDメトリクスはこれらの記録を使用して品質ダッシュボードを更新
+
+3. **検証マトリクス / Validation Matrix**
+   - Codexは生成物ごとに期待結果と検証状況を追跡
+   - LDDのメトリクスログに組み込むことで、他エージェントが失敗ケースを迅速に確認可能
+
+4. **ハンドオフと継続性 / Handoff & Continuity**
+   - Codexは次の担当エージェント向けの`handoff_summary`を作成
+   - LDDのフィードバックログとSpecStoryに要約が保存され、継続的な開発が円滑化
+
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
 ## 結論 / Conclusion
 
 OpenHands Devin AgentとAuto-coder-agent_Cursor_Roo_codeのLDDメソドロジーは、多くの点で相互補完的な関係にあります。計画システムとワークフロー、コンテキスト管理とメモリーバンク、フィードバックメカニズム、メトリクス収集の各領域で、両システムは類似した目標を持ちながらも、異なるアプローチと強みを持っています。
