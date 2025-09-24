@@ -288,6 +288,39 @@ These tools correspond to the execution and metrics collection phases of LDD. Sh
 ◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
 
 ◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+## Codexエージェント / Codex Agent
+
+Codexエージェントは、プロンプトチェーンとツール実行の記録を重視したコード生成特化エージェントであり、Cursor・Roo・Devinと連携してLDDプロセスを補完します。
+
+The Codex agent focuses on prompt chaining and explicit tool execution logging to complement Cursor, Roo, and Devin within the LDD process.
+
+### 主要機能 / Key Features
+
+1. **プロンプトチェーン駆動 / Prompt-Chain Driven**
+   - ユーザー意図から実装・検証までのステージを定義し、`codex_prompt_chain`に記録
+   - Define stages from user intent through implementation and validation, storing them in the `codex_prompt_chain` log section
+
+2. **ツール実行の可視化 / Tool Invocation Visibility**
+   - テスト・リンター・フォーマッターの実行を`tool_invocations`に追記
+   - Append test, linter, and formatter executions to `tool_invocations`
+
+3. **検証マトリクス管理 / Validation Matrix Management**
+   - 期待結果と実行結果を表形式で整理し、失敗ケースを明示
+   - Organise expected vs. actual outcomes in tables to highlight failure cases
+
+4. **ハンドオフ強化 / Handoff Enablement**
+   - `handoff_summary`で次のエージェント向けに残課題と検証フックを提示
+   - Provide pending items and verification hooks for the next agent within `handoff_summary`
+
+### LDDとの統合 / Integration with LDD
+
+CodexはLDDの計画フェーズでプロンプトチェーンを定義し、実行フェーズで成果をログに記録し、検証フェーズでメトリクスを更新、フィードバックフェーズでハンドオフノートを共有します。
+
+Codex defines the prompt chain during the planning phase of LDD, records artefacts during execution, updates metrics during validation, and shares handoff notes during the feedback phase.
+
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
 ## DevinAgent / Devinエージェント
 
 DevinAgentは、上記のすべてのコンポーネントを統合し、自律的なソフトウェア開発を実現するエージェントです。

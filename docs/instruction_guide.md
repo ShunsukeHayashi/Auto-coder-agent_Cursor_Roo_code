@@ -23,6 +23,14 @@
 Auto-coder-agent_Cursor_Roo_codeは、ログ駆動開発（LDD）手法を用いたAI支援コーディングシステムです。このシステムは、Cursor IDEと統合され、AIによるコード生成と支援を提供します。
 
 ◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
+## Codexエージェント連携 / Codex Agent Integration
+
+- Codexエージェントは`codex/codex_agent_template.mdc`を基点に、プロンプトチェーン形式でCursor/Roo/Devinと協調します。
+- Prompt chaining results must be logged in `codex_prompt_chain` sections so all agents can audit the workflow.
+- `docs/codex/integration_guide.md`にCodex専用のベストプラクティスとハンドオフ手順を記載しています。
+- メトリクスとフィードバックにはCodexの実行結果も含め、LDD全体の継続的改善に活用します。
+
+◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢◤◢
 ## タスク分解
 
 - [タスク 1] リポジトリへのアクセス確認

@@ -1,14 +1,15 @@
 # Auto-coder-agent_Cursor_Roo_code
 
 ## Overview
-This project is a codebase for an automated coding agent using Cursor and Roo.
-It adopts Log-Driven Development (LDD) to effectively manage and utilize AI interaction history.
+This project is a codebase for automated coding workflows powered by Cursor, Roo, and Codex agents.
+It adopts Log-Driven Development (LDD) to effectively manage and utilize multi-agent interaction history.
 
 ## Features
-- Automatic saving of Cursor AI interaction history
+- Automatic saving of Cursor / Codex AI interaction history
 - Development management through Log-Driven Development (LDD)
 - Multilingual support (Japanese/English)
 - Metrics-based quality management
+- Prompt-chaining templates and integration guides for the Codex agent
 
 ## Directory Structure
 ```
@@ -35,11 +36,11 @@ EN/
 ### 2. Log Management
 1. Record logs according to `@logging_template.mdc`
 2. Select appropriate log categories
-3. Regularly check metrics
+3. Reflect outputs from Cursor, Roo, Codex, and Devin agents in the metrics
 
 ### 3. Feedback Loop
 1. Record feedback after task completion
-2. Integrate AI analysis results
+2. Integrate AI analysis results from Cursor, Roo, Codex, and Devin
 3. Implement improvement suggestions
 
 ## Development Process
